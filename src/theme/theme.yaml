@@ -54,7 +54,9 @@ color:
       k: '#2b2826'
     black: '#000000'
   brand:
-    primary: &color-brand-primary '#709425'
+    #primary: &color-brand-primary '#709425'
+    #primary: &color-brand-primary '#0F70B8'
+    primary: &color-brand-primary '#138796'
     primaryActive: '#709425'
     light: '#709425'
     lightActive: '#709425'
@@ -131,7 +133,7 @@ icon:
 
 
 # COMPONENT TOKENS
-hero:
+trollcoding:
   h1:
     size: *font-size-xxl
     color: *color-white
@@ -139,7 +141,7 @@ hero:
   background: 'linear-gradient(0deg, #E0306E, #6438B5)'
 blog:
   h1:
-    size: *font-size-l
+    size: *font-size-m
     lineHeight: *font-line-height-xs
     hoverColor: *color-brand-primary
 header:

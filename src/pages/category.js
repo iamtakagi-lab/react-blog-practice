@@ -47,7 +47,7 @@ const CategoryPage = props => {
         {theme => (
           <Article theme={theme}>
             <header>
-              <Headline title="Posts by categories" theme={theme} />
+              <Headline title="カテゴリ別　記事" theme={theme} />
             </header>
             {categoryList.map(item => (
               <section key={item[0]}>
@@ -100,15 +100,6 @@ export const query = graphql`
             title
             category
             author
-            cover {
-              children {
-                ... on ImageSharp {
-                  fluid(maxWidth: 800, maxHeight: 360) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
-                }
-              }
-            }
           }
         }
       }

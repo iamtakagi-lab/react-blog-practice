@@ -26,7 +26,7 @@ const PostShare = props => {
     theme
   } = props;
 
-  const url = config.siteUrl + config.pathPrefix + slug;
+  const url = config.siteUrl + slug;
 
   const iconSize = 36;
   const filter = count => (count > 0 ? count : "");
@@ -45,42 +45,6 @@ const PostShare = props => {
           >
             <TwitterIcon round size={iconSize} />
           </TwitterShareButton>
-          <GooglePlusShareButton
-            url={url}
-            additionalProps={{
-              "aria-label": "Google share"
-            }}
-          >
-            <GooglePlusIcon round size={iconSize} />
-            <GooglePlusShareCount url={url}>
-              {count => <div className="share-count">{filter(count)}</div>}
-            </GooglePlusShareCount>
-          </GooglePlusShareButton>
-          <FacebookShareButton
-            url={url}
-            quote={`${title} - ${excerpt}`}
-            additionalProps={{
-              "aria-label": "Facebook share"
-            }}
-          >
-            <FacebookIcon round size={iconSize} />
-            <FacebookShareCount url={url}>
-              {count => <div className="share-count">{filter(count)}</div>}
-            </FacebookShareCount>
-          </FacebookShareButton>
-          <LinkedinShareButton
-            url={url}
-            title={title}
-            description={excerpt}
-            additionalProps={{
-              "aria-label": "LinkedIn share"
-            }}
-          >
-            <LinkedinIcon round size={iconSize} />
-            <LinkedinShareCount url={url}>
-              {count => <div className="share-count">{filter(count)}</div>}
-            </LinkedinShareCount>
-          </LinkedinShareButton>
         </div>
       </div>
 

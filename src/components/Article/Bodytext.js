@@ -5,7 +5,9 @@ const Bodytext = props => {
   const { html, theme } = props;
 
   return (
+
     <React.Fragment>
+
       <div className="bodytext" dangerouslySetInnerHTML={{ __html: html }} />
 
       <style jsx>{`
@@ -20,7 +22,7 @@ const Bodytext = props => {
 
           :global(h2) {
             line-height: ${theme.font.lineHeight.s};
-            font-size: ${theme.font.size.l};
+            font-size: ${theme.font.size.m};
           }
 
           :global(h3) {
@@ -55,12 +57,28 @@ const Bodytext = props => {
             overflow: hidden;
             border: 1px solid ${theme.line.color};
           }
+          :global(code){
+            fontSize: 0.1em;
+          }
           :global(code.language-text) {
-            background: ${theme.color.neutral.gray.c};
             text-shadow: none;
-            color: inherit;
             padding: 0.1em 0.3em 0.2em;
             border-radius: 0.1em;
+            fontSize: 0.1em;
+          }
+          :global(.gatsby-highlight) {
+              border-radius: 0.3em;
+              margin: 0.5em 0;
+              padding: 1em;
+              overflow: auto;
+          }
+          :global(.gatsby-highlight pre[class*="language-"]) {
+              fontSize: 0.1em;
+              margin: 0;
+              padding: 0;
+              overflow: initial;
+              float: left;
+              min-width: 100%;
           }
         }
 

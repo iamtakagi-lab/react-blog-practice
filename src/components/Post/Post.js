@@ -7,8 +7,8 @@ import Headline from "../Article/Headline";
 import Bodytext from "../Article/Bodytext";
 import Meta from "./Meta";
 import Author from "./Author";
-import Comments from "./Comments";
 import NextPrev from "./NextPrev";
+import JustComments from "./JustComments";
 
 const Share = asyncComponent(() =>
   import("./Share")
@@ -24,7 +24,7 @@ const Post = props => {
     post: {
       html,
       fields: { prefix, slug },
-      frontmatter: { title, author, category }
+      frontmatter: { title, author, category, tags }
     },
     authornote,
     facebook,
@@ -37,14 +37,13 @@ const Post = props => {
     <React.Fragment>
       <header>
         <Headline title={title} theme={theme} />
-        <Meta prefix={prefix} author={author} category={category} theme={theme} />
+        <Meta prefix={prefix} author={author} category={category} tags={tags} theme={theme} />
       </header>
       <Bodytext html={html} theme={theme} />
       <footer>
         <Share post={post} theme={theme} />
-        <Author note={authornote} theme={theme} />
         <NextPrev next={nextPost} prev={prevPost} theme={theme} />
-        <Comments slug={slug} facebook={facebook} theme={theme} />
+        <JustComments/>
       </footer>
     </React.Fragment>
   );

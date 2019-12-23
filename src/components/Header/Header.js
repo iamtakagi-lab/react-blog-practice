@@ -7,7 +7,7 @@ import { ScreenWidthContext, FontLoadedContext } from "../../layouts";
 import config from "../../../content/meta/config";
 import Menu from "../Menu";
 
-import avatar from "../../images/jpg/avatar.jpg";
+import avatar from "../../images/png/avatar.png";
 
 class Header extends React.Component {
   state = {
@@ -29,6 +29,12 @@ class Header extends React.Component {
     return `${fixed} ${homepage}`;
   };
 
+  /*
+   <div className="logo">
+              <img src={config.gravatarImgMd5=="" ? avatar : config.gravatarImgMd5 } alt={config.siteTitle} />
+            </div>
+  */
+
   render() {
     const { pages, path, theme } = this.props;
     const { fixed } = this.state;
@@ -37,9 +43,6 @@ class Header extends React.Component {
       <React.Fragment>
         <header className={`header ${this.getHeaderSize()}`}>
           <Link to="/" className="logoType">
-            <div className="logo">
-              <img src={config.gravatarImgMd5=="" ? avatar : config.gravatarImgMd5 } alt={config.siteTitle} />
-            </div>
             <div className="type">
               <h1>{config.headerTitle}</h1>
               <h2>{config.headerSubTitle}</h2>
@@ -62,8 +65,9 @@ class Header extends React.Component {
             )}
           </FontLoadedContext.Consumer>
         </header>
+
         <VisibilitySensor onChange={this.visibilitySensorChange}>
-          <div className="sensor" />
+          <div className="sensor"/>
         </VisibilitySensor>
 
         {/* --- STYLES --- */}
@@ -159,10 +163,10 @@ class Header extends React.Component {
 
               :global(a.logoType),
               h1 {
-                color: ${theme.color.neutral.white};
+                color: ${theme.color.neutral.black};
               }
               h2 {
-                color: ${theme.color.neutral.gray.d};
+                color: ${theme.color.neutral.black};
               }
             }
           }
@@ -200,10 +204,10 @@ class Header extends React.Component {
               &.homepage:not(.fixed) {
                 :global(a.logoType),
                 h1 {
-                  color: ${theme.color.neutral.white};
+                  color: ${theme.color.neutral.black};
                 }
                 h2 {
-                  color: ${theme.color.neutral.gray.d};
+                  color: ${theme.color.neutral.black};
                 }
               }
             }

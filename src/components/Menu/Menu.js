@@ -6,6 +6,7 @@ import { FaHome } from "react-icons/fa/";
 import { FaSearch } from "react-icons/fa/";
 import { FaEnvelope } from "react-icons/fa/";
 import { FaTag } from "react-icons/fa/";
+import { FaUser } from "react-icons/fa";
 
 import Item from "./Item";
 import Expand from "./Expand";
@@ -24,10 +25,8 @@ class Menu extends React.Component {
 
     this.items = [
       { to: "/", label: "Home", icon: FaHome },
-      { to: "/category/", label: "Categories", icon: FaTag },
-      { to: "/search/", label: "Search", icon: FaSearch },
-      ...pages,
-      { to: "/contact/", label: "Contact", icon: FaEnvelope }
+      { to: "/category", label: "Categories", icon: FaTag },
+      { to: "/profile", label: "Profile", icon: FaUser },
     ];
 
     this.renderedItems = []; // will contain references to rendered DOM elements of menu
@@ -47,9 +46,11 @@ class Menu extends React.Component {
     theme: PropTypes.object.isRequired
   };
 
+
   componentDidMount() {
     this.renderedItems = this.getRenderedItems();
   }
+
 
   componentDidUpdate(prevProps) {
     if (
@@ -64,6 +65,8 @@ class Menu extends React.Component {
       this.hideOverflowedMenuItems();
     }
   }
+
+
 
   getRenderedItems = () => {
     const itemList = this.itemList.current;
@@ -198,6 +201,7 @@ class Menu extends React.Component {
                 right: ${theme.space.m};
                 top: 0;
                 height: 1px;
+                width: 100%;
                 background: ${theme.color.brand.primary};
               }
 

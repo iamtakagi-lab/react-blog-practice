@@ -92,7 +92,6 @@ class Layout extends React.Component {
                   }
                   frontmatter {
                     title
-                    menuTitle
                   }
                 }
               }
@@ -142,8 +141,8 @@ class Layout extends React.Component {
                       }
                       body {
                         font-family: ${this.state.font400loaded
-                          ? "'Open Sans', sans-serif;"
-                          : "Arial, sans-serif;"};
+                      ? "'Open Sans', sans-serif;"
+                      : "Arial, sans-serif;"};
                       }
                       h1,
                       h2,

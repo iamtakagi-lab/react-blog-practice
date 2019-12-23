@@ -1,13 +1,29 @@
-import { FaArrowRight } from "react-icons/fa/";
-import { FaCalendar } from "react-icons/fa/";
-import { FaTag } from "react-icons/fa/";
-import { FaUser } from "react-icons/fa/";
-import Img from "gatsby-image";
+import { FaArrowRight, FaCalendar, FaTag, FaUser } from "react-icons/fa/";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
 
-const Item = props => {
+const style = {
+  tagbtn: {
+    position: "relative",
+    display: "block",
+    width: "93px",
+    height: "24px",
+    lineHeight: "24px",
+    color: "white",
+    textAlign: "center",
+    textDecoration: "none",
+    backgroundColor: "#4f4f4f",
+    borderRadius: "5px",
+    webkitTransition: "all 0.5s",
+    transition: "all 0.5s",
+    webkitUserSelect: "none",
+    msUserSelect: "none",
+    margin: "5px"
+  }
+};
+
+const Item = (props) => {
   const {
     theme,
     post: {
@@ -17,39 +33,64 @@ const Item = props => {
         title,
         category,
         author,
-        cover: {
-          children: [{ fluid }]
-        }
+        tags
       }
     }
   } = props;
 
+  const getTags = (tags) => {
+    if (tags != null) {
+      const toReturn = [];
+      tags.forEach((tag) => {
+        toReturn.push(tag)
+      });
+      return toReturn;
+    }
+  };
+
+  const getTagElements = getTags(tags).map((a) =>
+    <Link to={`/tag/${a.split(" ").join("-").toLowerCase()}`}>
+      <span className="tag-button" style={style.tagbtn}>#{a}</span>
+    </Link>
+  );
+
   return (
     <React.Fragment>
       <li>
+
         <Link to={slug} key={slug} className="link">
-          <div className="gatsby-image-outer-wrapper">
-            <Img fluid={fluid} />
-          </div>
           <h1>
-            {title} <FaArrowRight className="arrow" />
+            {title}
           </h1>
-          <p className="meta">
-            <span>
-              <FaCalendar size={18} /> {prefix}
-            </span>
-            <span>
-              <FaUser size={18} /> {author}
-            </span>
-            {category && (
-              <span>
-                <FaTag size={18} /> {category}
-              </span>
-            )}
-          </p>
-          <p>{excerpt}</p>
         </Link>
+
+        <p className="meta">
+
+          {category && (
+            <Link to={`/category/${category.split(" ").join("-").toLowerCase()}`}>
+              <span className="category-button">
+                {category}
+              </span>
+            </Link>)}
+
+          <span>
+              <FaCalendar size={18} /> {prefix}
+          </span>
+
+          <span>
+              <FaUser size={18} /> {author}
+          </span>
+
+        </p>
+
+        <p>{excerpt}</p>
+
+        <p className={"tags"}>
+          <span>タグ: </span>
+          {getTagElements}
+        </p>
       </li>
+
 
       {/* --- STYLES --- */}
       <style jsx>{`
@@ -67,15 +108,6 @@ const Item = props => {
           transition: all ${theme.time.duration.default};
           background: transparent;
 
-          :global(.gatsby-image-outer-wrapper) {
-            border-radius: ${theme.size.radius.default};
-            border: 1px solid ${theme.line.color};
-            overflow: hidden;
-          }
-          :global(.gatsby-image-outer-wrapper img) {
-            z-index: -1;
-          }
-
           &::after {
             border-top: 1px solid ${theme.line.color};
             content: "";
@@ -85,21 +117,7 @@ const Item = props => {
             left: 50%;
             transform: translateX(-50%);
             transition: all ${theme.time.duration.default};
-            width: 50%;
-          }
-
-          &:first-child {
-            &::before {
-              border-top: 1px solid ${theme.line.color};
-              content: "";
-              height: 0;
-              position: absolute;
-              top: ${`calc(${theme.space.default} * -1.5)`};
-              left: 50%;
-              transform: translateX(-50%);
-              transition: all ${theme.time.duration.default};
-              width: 50%;
-            }
+            width: 100%;
           }
         }
 
@@ -127,19 +145,74 @@ const Item = props => {
             fill: ${theme.icon.color};
             margin: ${theme.space.inline.xs};
           }
+
           span {
             align-items: center;
             display: flex;
             text-transform: uppercase;
             margin: ${theme.space.xs} ${theme.space.s} ${theme.space.xs} 0;
           }
+
+          p {
+            line-height: 1.5;
+            padding: 0 ${theme.space.s};
+            text-remove-gap: both;
+          }
+
+          .category-button {
+             position: relative;
+             display: block;
+             width: 98px;
+             height: 24px;
+             line-height: 24px;
+             color: white;
+             text-decoration: none;
+             text-align: center;
+             background-color: ${theme.color.brand.primary};
+             border-radius: 5px; /*角丸*/
+             -webkit-transition: all 0.5s;
+             transition: all 0.5s;
+             -moz-user-select: none;
+             -webkit-user-select: none;
+             -ms-user-select: none;
+
+             &:hover {
+               background-color: ${theme.color.brand.primary};
+               -webkit-transform: scale(1.02);
+               -moz-transform: scale(1.02);
+               -o-transform: scale(1.02);
+               -ms-transform: scale(1.02);
+               transform: scale(1.02);
+             }
+           }
         }
 
-        p {
-          line-height: 1.5;
-          padding: 0 ${theme.space.s};
-          text-remove-gap: both;
+        .tags {
+          display: flex;
+          flex-flow: row wrap;
+          font-size: 0.8em;
+          padding: ${theme.space.m} ${theme.space.s};
+          background: transparent;
+
+          :global(svg) {
+            fill: ${theme.icon.color};
+            margin: ${theme.space.inline.xs};
+          }
+
+          span {
+            align-items: center;
+            display: flex;
+            text-transform: uppercase;
+            margin: ${theme.space.xs} ${theme.space.s} ${theme.space.xs} 0;
+          }
+
+          p {
+            line-height: 1.5;
+            padding: 0 ${theme.space.s};
+            text-remove-gap: both;
+          }
         }
+
 
         @from-width tablet {
           li {
@@ -159,7 +232,7 @@ const Item = props => {
 
           h1 {
             font-size: ${`calc(${theme.blog.h1.size} * 1.2)`};
-            padding: ${`calc(${theme.space.default} * 1.5) ${theme.space.default} 0`};
+            padding: ${`calc(${theme.space.default} * 1.2) ${theme.space.default} 0`};
             transition: all 0.5s;
           }
           .meta {
@@ -170,28 +243,6 @@ const Item = props => {
           }
         }
         @from-width desktop {
-          li {
-            margin: ${`calc(${theme.space.default} * 4) 0 calc(${theme.space.default} * 5)`};
-            padding: 0 0 ${`calc(${theme.space.default} * 2)`};
-
-            &::after {
-              bottom: ${`calc(${theme.space.default} * -1.5)`};
-            }
-
-            &:first-child {
-              &::before {
-                top: ${`calc(${theme.space.default} * -2.75)`};
-              }
-            }
-          }
-
-          :global(.blogItemLink:first-child) > li::before {
-            top: ${`calc(${theme.space.default} * -2.75)`};
-          }
-          h1 {
-            font-size: 2.5em;
-            padding: ${`calc(${theme.space.default} * 1.2) calc(${theme.space.default} * 2) 0`};
-          }
           .meta {
             padding: ${`calc(${theme.space.default} * 1.5) calc(${theme.space.default} * 2)
               calc(${theme.space.default} * 0.5)`};
@@ -201,12 +252,8 @@ const Item = props => {
           }
           li {
             &:hover {
-              border: 1px solid ${theme.line.color};
-              box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.03);
 
-              &:after {
-                bottom: ${`calc(${theme.space.default} * -2.5)`};
-              }
+
               :global(.gatsby-image-wrapper) {
                 transform: scale(1.1);
               }
@@ -234,7 +281,8 @@ const Item = props => {
             }
           }
         }
-      `}</style>
+
+       `}</style>
     </React.Fragment>
   );
 };

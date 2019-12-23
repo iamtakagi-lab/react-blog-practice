@@ -36,8 +36,7 @@ const PostTemplate = props => {
           </Article>
         )}
       </ThemeContext.Consumer>
-
-      <Seo data={post} facebook={facebook} />
+      <Seo data={post} facebook={facebook}/>
     </React.Fragment>
   );
 };
@@ -63,13 +62,7 @@ export const postQuery = graphql`
         title
         author
         category
-        cover {
-          childImageSharp {
-            resize(width: 300) {
-              src
-            }
-          }
-        }
+        tags
       }
     }
     authornote: markdownRemark(fileAbsolutePath: { regex: "/author/" }) {

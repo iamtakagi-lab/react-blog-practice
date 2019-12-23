@@ -26,15 +26,11 @@ const CategoryTemplate = props => {
           <Article theme={theme}>
             <header>
               <Headline theme={theme}>
-                <span>Posts in category</span> <FaTag />
+                <span>カテゴリ</span> <FaTag />
                 {category}
               </Headline>
               <p className="meta">
-                There {totalCount > 1 ? "are" : "is"} <strong>{totalCount}</strong> post{totalCount >
-                1
-                  ? "s"
-                  : ""}{" "}
-                in the category.
+                <strong>{totalCount}</strong>件の記事
               </p>
               <List edges={edges} theme={theme} />
             </header>

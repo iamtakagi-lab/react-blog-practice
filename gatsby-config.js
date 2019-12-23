@@ -36,13 +36,6 @@ module.exports = {
     title: config.siteTitle,
     description: config.siteDescription,
     siteUrl: config.siteUrl,
-    algolia: {
-      appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
-      searchOnlyApiKey: process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        ? process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        : "",
-      indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : ""
-    },
     facebook: {
       appId: process.env.FB_APP_ID ? process.env.FB_APP_ID : ""
     }
@@ -54,16 +47,6 @@ module.exports = {
       resolve: `gatsby-plugin-layout`,
       options: {
         component: require.resolve(`./src/layouts/`)
-      }
-    },
-    {
-      resolve: `gatsby-plugin-algolia`,
-      options: {
-        appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
-        apiKey: process.env.ALGOLIA_ADMIN_API_KEY ? process.env.ALGOLIA_ADMIN_API_KEY : "",
-        indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : "",
-        queries,
-        chunkSize: 10000 // default: 1000
       }
     },
     {
@@ -113,6 +96,16 @@ module.exports = {
             }
           },
           `gatsby-remark-prismjs`,
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+                classPrefix: "language-",
+                inlineCodeMarker: null,
+                aliases: {},
+                showLineNumbers: false,
+                noInlineHighlight: false,
+            },
+          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
           {
@@ -151,50 +144,14 @@ module.exports = {
         background_color: config.manifestBackgroundColor,
         theme_color: config.manifestThemeColor,
         display: config.manifestDisplay,
-        icons: [
-          {
-            src: "/icons/icon-48x48.png",
-            sizes: "48x48",
-            type: "image/png"
-          },
-          {
-            src: "/icons/icon-96x96.png",
-            sizes: "96x96",
-            type: "image/png"
-          },
-          {
-            src: "/icons/icon-144x144.png",
-            sizes: "144x144",
-            type: "image/png"
-          },
-          {
-            src: "/icons/icon-192x192.png",
-            sizes: "192x192",
-            type: "image/png"
-          },
-          {
-            src: "/icons/icon-256x256.png",
-            sizes: "256x256",
-            type: "image/png"
-          },
-          {
-            src: "/icons/icon-384x384.png",
-            sizes: "384x384",
-            type: "image/png"
-          },
-          {
-            src: "/icons/icon-512x512.png",
-            sizes: "512x512",
-            type: "image/png"
-          }
-        ]
+        icon: 'src/icons/icon.png',
       }
     },
     `gatsby-plugin-offline`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID
+        trackingId: 'UA-135014185-1'
       }
     },
     {

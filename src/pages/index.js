@@ -3,10 +3,11 @@ import React from "react";
 import { graphql } from "gatsby";
 import { ThemeContext } from "../layouts";
 import Blog from "../components/Blog";
-import Hero from "../components/Hero";
+import TrollCoding from "../components/TrollCoding";
 import Seo from "../components/Seo";
 
 class IndexPage extends React.Component {
+
   separator = React.createRef();
 
   scrollToContent = e => {
@@ -38,19 +39,23 @@ class IndexPage extends React.Component {
       mobile
     };
 
-    return (
-      <React.Fragment>
-        <ThemeContext.Consumer>
+    /*
+      <ThemeContext.Consumer>
           {theme => (
-            <Hero scrollToContent={this.scrollToContent} backgrounds={backgrounds} theme={theme} />
+            <TrollCoding scrollToContent={this.scrollToContent} backgrounds={backgrounds} theme={theme} />
           )}
         </ThemeContext.Consumer>
+     */
 
-        <hr ref={this.separator} />
+    return (
+      <React.Fragment>
+
+        <hr ref={this.separator}/>
 
         <ThemeContext.Consumer>
           {theme => <Blog posts={posts} theme={theme} />}
         </ThemeContext.Consumer>
+
 
         <Seo facebook={facebook} />
 
@@ -71,7 +76,6 @@ IndexPage.propTypes = {
 
 export default IndexPage;
 
-//eslint-disable-next-line no-undef
 export const query = graphql`
   query IndexQuery {
     posts: allMarkdownRemark(
@@ -89,15 +93,7 @@ export const query = graphql`
             title
             category
             author
-            cover {
-              children {
-                ... on ImageSharp {
-                  fluid(maxWidth: 800, maxHeight: 360) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
-                }
-              }
-            }
+            tags
           }
         }
       }
@@ -109,22 +105,20 @@ export const query = graphql`
         }
       }
     }
-    bgDesktop: imageSharp(fluid: { originalName: { regex: "/hero-background/" } }) {
+    bgDesktop: imageSharp(fluid: { originalName: { regex: "/dbbpqj5-dfbf4e9d-e4d9-4c1c-81c6-fd8511db78d0.jpg/" } }) {
       resize(width: 1200, quality: 90, cropFocus: CENTER) {
         src
       }
     }
-    bgTablet: imageSharp(fluid: { originalName: { regex: "/hero-background/" } }) {
+    bgTablet: imageSharp(fluid: { originalName: { regex: "/dbbpqj5-dfbf4e9d-e4d9-4c1c-81c6-fd8511db78d0.jpg/" } }) {
       resize(width: 800, height: 1100, quality: 90, cropFocus: CENTER) {
         src
       }
     }
-    bgMobile: imageSharp(fluid: { originalName: { regex: "/hero-background/" } }) {
+    bgMobile: imageSharp(fluid: { originalName: { regex: "/dbbpqj5-dfbf4e9d-e4d9-4c1c-81c6-fd8511db78d0.jpg/" } }) {
       resize(width: 450, height: 850, quality: 90, cropFocus: CENTER) {
         src
       }
     }
   }
 `;
-
-//hero-background
